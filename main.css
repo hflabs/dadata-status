@@ -1,0 +1,157 @@
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+}
+b {
+    font-weight: normal;
+}
+
+body {
+    background: #3c414d;
+    font-family: Helvetica, 'Segoe UI', sans-serif;
+    font-size: 16px;
+    position: relative;
+}
+
+.green {
+    color: #9cba64;
+}
+.yellow {
+    color: #fdd835;
+}
+.red {
+    color: #f43e3d;
+}
+.white {
+    color: #fff;
+}
+.undefined {
+    color: #ccc;
+}
+.hidden {
+    display: none;
+}
+
+.overall {
+    background: #fff;
+    padding: 1em 0 1.2em;
+    text-align: center;
+}
+.overall h1 {
+    font-size: 3em;
+    font-weight: 200; 
+    margin: .4em 0 .6em;
+}
+.overall h1 b {
+    font-weight: 200;   
+}
+.overall__logo {
+    margin-left: -1em;
+    width: 1em;
+}
+
+.services {
+    padding: 4em 2em 5em;
+}
+.services--social {
+    background: #fff;
+}
+
+.services__body {
+    max-width: 61em;
+    margin: auto;
+}
+
+.services__item {
+    display: inline-block;
+    height: 17em;
+    padding-right: 2em;
+    padding-bottom: 2em;
+    vertical-align: top;
+    width: 20em;
+}
+
+.service {
+    background: #fff;
+    box-shadow: 0 7px 21px rgba(0, 0, 0, .3);
+    height: 100%;
+    padding: 1em 2em 2em 3.5em;
+}
+.service h2 {
+    font-size: 1.5em;
+    margin: .5em 0 .2em 0;
+}
+.service__logo {
+    margin-left: -1.4em;
+    margin-right: .4em;
+    width: 1em;
+}
+.service__status {
+    font-size: .67em;
+}
+.service__availability {
+    list-style: none;
+    margin: 0;
+    padding: .2em 0 0;
+}
+.service__level {
+    padding: .2em 0 .4em;
+}
+.service__level div {
+    display: inline-block;
+}
+.service__percentage {
+    min-width: 3em;
+}
+
+.social h2 {
+    margin-top: 0;
+}
+
+.footer {
+    height: 3em;
+    line-height: 3em;
+    text-align: center;
+}
+
+@media only screen and (max-width: 1024px) {
+    .services {
+        padding: 3em 2em 2.5em;
+    }
+}
+
+@media only screen and (max-width: 710px) {
+    body {
+        font-size: 14px;
+    }
+    .overall {
+        padding-top: .4em;
+        padding-bottom: .6em;
+    }
+    .overall h1 {
+        font-size: 2em;
+    }
+
+}
+
+@media only screen and (max-width: 480px) {
+    .services__item {
+        display: block;
+        height: auto;
+        padding-right: 0;
+        width: 100%;
+    }
+    .services__item:last-child {
+        padding-bottom: 0;
+    }
+
+    .overall h1 {
+        font-size: 1.8em;
+    }
+}
