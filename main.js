@@ -5,8 +5,7 @@
     var services = [
         { id: 'website', api_key: 'm775987346-0a1e273dee99341047fe7279' },
         { id: 'clean',   api_key: 'm776633537-961322d46b6bf23ce39b448c' },
-        { id: 'suggest-premium', api_key: 'm776052778-75e9b3d8f3162b108fc7b1bf' },
-        { id: 'suggest-free', api_key: 'm775987925-dbe10336802449bceb1cfe32' }
+        { id: 'suggest-premium', api_key: 'm776052778-75e9b3d8f3162b108fc7b1bf' }
         
     ];
 
@@ -67,7 +66,7 @@
         }
     }
 
-    function render_uptime($el, percent) {
+    function render_uptime($el, percent, suffix) {
         $el.removeClass('undefined green red');
         if (percent > 99) {
             $el.addClass('green');
@@ -76,7 +75,7 @@
         } else {
             $el.addClass('red');
         }
-        $el.text(percent);
+        $el.text(percent + (suffix || ''));
     }
 
     function render(service) {
@@ -87,7 +86,7 @@
             $month = $service.find('.js-month'),
             $year = $service.find('.js-year');
         render_state($state, service.is_up);
-        render_uptime($day, service.uptime.day);
+        render_uptime($day, service.uptime.day, '%');
         render_uptime($week, service.uptime.week);
         render_uptime($month, service.uptime.month);
         render_uptime($year, service.uptime.year);
