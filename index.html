@@ -1,110 +1,139 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Статус DaData.ru</title>
     <link rel="shortcut icon" href="favicon.ico" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap&subset=cyrillic" rel="stylesheet">
     <link rel="stylesheet" href="normalize.css">
     <link rel="stylesheet" href="main.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="main.js"></script>
-  </head>
-  <body>
+</head>
+
+<body>
     <header id="overall" class="overall">
-        <h1><i class="overall__logo hidden fa js-logo"></i>&nbsp;DaData.ru <b class="overall_status undefined js-state">проверяю...</b></h1>
+        <h1><i class="overall__logo hidden fa js-logo"></i> DaData.ru <b
+                class="overall_status undefined js-state">проверяю...</b></h1>
     </header>
     <section class="services">
         <div class="services__body">
-        <article class="services__item">
-            <div id="website" class="service">
-                <h2>
-                    <i class="service__logo fa fa-code"></i>Сайт
-                    <div class="service__status undefined js-state">проверяю...</div>
-                </h2>
-                
-                <div class="service__status"></div>
-                <ul class="service__availability">
-                    <li class="service__level">
-                        <div class="service__percentage"><b class="undefined js-day">–&thinsp;–</b></div><div>за 24 часа</div>
-                    </li>
-                    <li class="service__level">
-                        <div class="service__percentage"><b class="undefined js-week">–&thinsp;–</b></div><div>неделю</div>
-                    </li>
-                    <li class="service__level">
-                        <div class="service__percentage"><b class="undefined js-month">–&thinsp;–</b></div><div>месяц</div>
-                    </li>
-                    <li class="service__level">
-                        <div class="service__percentage"><b class="undefined js-year">–&thinsp;–</b></div><div>год</div>
-                    </li>
-                </ul>
-            </div>
-        </article>
+            <article class="services__item">
+                <div id="website" class="service">
+                    <h2>
+                        Сайт
+                        <div class="service__status undefined js-state">проверяю...</div>
+                    </h2>
 
-        <article class="services__item">
-            <div id="clean" class="service">
-                <h2>
-                    <i class="service__logo fa fa-cog"></i>Стандартизация
-                    <div class="service__status undefined js-state">проверяю...</div>
-                </h2>
-                <div class="service__status"></div>
-                <ul class="service__availability">
-                    <li class="service__level">
-                        <div class="service__percentage"><b class="undefined js-day">–&thinsp;–</b></div><div>за 24 часа</div>
-                    </li>
-                    <li class="service__level">
-                        <div class="service__percentage"><b class="undefined js-week">–&thinsp;–</b></div><div>неделю</div>
-                    </li>
-                    <li class="service__level">
-                        <div class="service__percentage"><b class="undefined js-month">–&thinsp;–</b></div><div>месяц</div>
-                    </li>
-                    <li class="service__level">
-                        <div class="service__percentage"><b class="undefined js-year">–&thinsp;–</b></div><div>год</div>
-                    </li>
-                </ul>
-            </div>
-        </article>
+                    <div class="service__status"></div>
+                    <ul class="service__availability">
+                        <li class="service__level">
+                            <div class="service__percentage"><b class="undefined js-day">–&thinsp;–</b></div>
+                            <div>за 24 часа</div>
+                        </li>
+                        <li class="service__level">
+                            <div class="service__percentage"><b class="undefined js-week">–&thinsp;–</b></div>
+                            <div>неделю</div>
+                        </li>
+                        <li class="service__level">
+                            <div class="service__percentage"><b class="undefined js-month">–&thinsp;–</b></div>
+                            <div>месяц</div>
+                        </li>
+                        <li class="service__level">
+                            <div class="service__percentage"><b class="undefined js-year">–&thinsp;–</b></div>
+                            <div>год</div>
+                        </li>
+                    </ul>
+                </div>
+            </article>
 
-        <article class="services__item">
-            <div id="suggest-premium" class="service">
-                <h2>
-                    <i class="service__logo fa fa-align-justify"></i>Подсказки
-                    <div class="service__status undefined js-state">проверяю...</div>
-                </h2>
-                <div class="service__status"></div>
-                <ul class="service__availability">
-                    <li class="service__level">
-                        <div class="service__percentage"><b class="undefined js-day">–&thinsp;–</b></div><div>за 24 часа</div>
-                    </li>
-                    <li class="service__level">
-                        <div class="service__percentage"><b class="undefined js-week">–&thinsp;–</b></div><div>неделю</div>
-                    </li>
-                    <li class="service__level">
-                        <div class="service__percentage"><b class="undefined js-month">–&thinsp;–</b></div><div>месяц</div>
-                    </li>
-                    <li class="service__level">
-                        <div class="service__percentage"><b class="undefined js-year">–&thinsp;–</b></div><div>год</div>
-                    </li>
-                </ul>
-            </div>
-        </article>
+            <article class="services__item">
+                <div id="clean" class="service">
+                    <h2>
+                        Стандартизация
+                        <div class="service__status undefined js-state">проверяю...</div>
+                    </h2>
+                    <div class="service__status"></div>
+                    <ul class="service__availability">
+                        <li class="service__level">
+                            <div class="service__percentage"><b class="undefined js-day">–&thinsp;–</b></div>
+                            <div>за 24 часа</div>
+                        </li>
+                        <li class="service__level">
+                            <div class="service__percentage"><b class="undefined js-week">–&thinsp;–</b></div>
+                            <div>неделю</div>
+                        </li>
+                        <li class="service__level">
+                            <div class="service__percentage"><b class="undefined js-month">–&thinsp;–</b></div>
+                            <div>месяц</div>
+                        </li>
+                        <li class="service__level">
+                            <div class="service__percentage"><b class="undefined js-year">–&thinsp;–</b></div>
+                            <div>год</div>
+                        </li>
+                    </ul>
+                </div>
+            </article>
+
+            <article class="services__item">
+                <div id="suggest-premium" class="service">
+                    <h2>
+                        Подсказки
+                        <div class="service__status undefined js-state">проверяю...</div>
+                    </h2>
+                    <div class="service__status"></div>
+                    <ul class="service__availability">
+                        <li class="service__level">
+                            <div class="service__percentage"><b class="undefined js-day">–&thinsp;–</b></div>
+                            <div>за 24 часа</div>
+                        </li>
+                        <li class="service__level">
+                            <div class="service__percentage"><b class="undefined js-week">–&thinsp;–</b></div>
+                            <div>неделю</div>
+                        </li>
+                        <li class="service__level">
+                            <div class="service__percentage"><b class="undefined js-month">–&thinsp;–</b></div>
+                            <div>месяц</div>
+                        </li>
+                        <li class="service__level">
+                            <div class="service__percentage"><b class="undefined js-year">–&thinsp;–</b></div>
+                            <div>год</div>
+                        </li>
+                    </ul>
+                </div>
+            </article>
 
         </div>
     </section>
 
     <section class="services services--social social">
-        <article class="services__body">
-            <h2>Новости</h2>
-            <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/dadata_ru" data-widget-id="392196761462128641" data-tweet-limit="3">Новости @dadata_ru</a>
-            <script async>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-        </article>
-        
+        <div class="services__body">
+            <article class="social__twitter">
+                <h2>Последние изменения</h2>
+                <a class="twitter-timeline" href="https://twitter.com/dadata_ru" data-dnt="true" data-tweet-limit="3"
+                    data-link-color="#0066cc" data-chrome="noheader" data-width="530" data-height="300">
+                    Новости @dadata_ru
+                </a>
+                <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+            </article>
+            <article class="social__subscribe">
+                <p>В твитере анонсируем изменения, пишем о плановых работах и держим в курсе событий при сбоях.</p>
+                <a class="twitter-follow-button" href="https://twitter.com/dadata_ru" data-size="large"
+                    data-show-count="false">Подписаться</a>
+                <p>Если не пользуетесь твитером — подпишитесь на изменения <a
+                        href="https://dadata.userecho.com/topics/625" target="_blank">по электронной почте</a>
+                </p>
+            </article>
+        </div>
     </section>
 
     <footer class="footer">
         <a class="white" href="https://dadata.ru">DaData.ru</a>
     </footer>
-  </body>
+</body>
+
 </html>

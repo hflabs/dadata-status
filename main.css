@@ -1,11 +1,18 @@
 html {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
-*, *:before, *:after {
-  box-sizing: inherit;
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-weight: normal;
 }
 b {
@@ -14,9 +21,11 @@ b {
 
 body {
     background: #3c414d;
-    font-family: Helvetica, 'Segoe UI', sans-serif;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
     font-size: 16px;
     position: relative;
+    -webkit-font-smoothing: antialiased;
 }
 
 .green {
@@ -45,11 +54,7 @@ body {
 }
 .overall h1 {
     font-size: 3em;
-    font-weight: 200; 
-    margin: .4em 0 .6em;
-}
-.overall h1 b {
-    font-weight: 200;   
+    margin: 0.4em 0 0.6em;
 }
 .overall__logo {
     margin-left: -1em;
@@ -79,29 +84,24 @@ body {
 
 .service {
     background: #fff;
-    box-shadow: 0 7px 21px rgba(0, 0, 0, .3);
+    box-shadow: 0 7px 21px rgba(0, 0, 0, 0.3);
     height: 100%;
-    padding: 1em 2em 2em 3.5em;
+    padding: 1em 2.5em 2em;
 }
 .service h2 {
     font-size: 1.5em;
-    margin: .5em 0 .2em 0;
-}
-.service__logo {
-    margin-left: -1.4em;
-    margin-right: .4em;
-    width: 1em;
+    margin: 0.5em 0 0.2em 0;
 }
 .service__status {
-    font-size: .67em;
+    font-size: 0.67em;
 }
 .service__availability {
     list-style: none;
     margin: 0;
-    padding: .2em 0 0;
+    padding: 0.2em 0 0;
 }
 .service__level {
-    padding: .2em 0 .4em;
+    padding: 0.2em 0 0.4em;
 }
 .service__level div {
     display: inline-block;
@@ -112,6 +112,15 @@ body {
 
 .social h2 {
     margin-top: 0;
+}
+.social__twitter,
+.social__subscribe {
+    display: inline-block;
+    vertical-align: top;
+    width: 49.5%;
+}
+.social__subscribe {
+    padding: 2.5em 2em 0 3em;
 }
 
 .footer {
@@ -131,13 +140,12 @@ body {
         font-size: 14px;
     }
     .overall {
-        padding-top: .4em;
-        padding-bottom: .6em;
+        padding-top: 0.4em;
+        padding-bottom: 0.6em;
     }
     .overall h1 {
         font-size: 2em;
     }
-
 }
 
 @media only screen and (max-width: 591px) {
@@ -152,6 +160,13 @@ body {
     }
     .services__item:last-child {
         padding-bottom: 0;
+    }
+
+    .social__twitter,
+    .social__subscribe {
+        display: block;
+        width: 100%;
+        padding: 0;
     }
 
     .overall h1 {
