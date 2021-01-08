@@ -71,7 +71,7 @@
         }
     }
 
-    function render_uptime($el, percent, suffix) {
+    function render_uptime($el, percent) {
         $el.removeClass("undefined green red");
         if (percent > 99) {
             $el.addClass("green");
@@ -80,7 +80,7 @@
         } else {
             $el.addClass("red");
         }
-        $el.text(percent + (suffix || ""));
+        $el.text(percent + "%");
     }
 
     function render(service) {
@@ -91,7 +91,7 @@
             $month = $service.find(".js-month"),
             $year = $service.find(".js-year");
         render_state($state, service.is_up);
-        render_uptime($day, service.uptime.day, "%");
+        render_uptime($day, service.uptime.day);
         render_uptime($week, service.uptime.week);
         render_uptime($month, service.uptime.month);
         render_uptime($year, service.uptime.year);
