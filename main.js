@@ -1,51 +1,53 @@
-(function($) {
+(function ($) {
     "use strict";
 
-    var MONITOR_URL =
-        "https://api.uptimerobot.com/getMonitors?apiKey={{API_KEY}}&format=json&noJsonCallback=1&customUptimeRatio=1-7-30-365";
-    var services = [
-        { id: "website", api_key: "m775987346-0a1e273dee99341047fe7279" },
-        { id: "clean", api_key: "m776633537-961322d46b6bf23ce39b448c" },
-        {
-            id: "suggest-premium",
-            api_key: "m776052778-75e9b3d8f3162b108fc7b1bf"
-        }
-    ];
+    const MONITOR_URL = "https://api.uptimerobot.com/v2/getMonitors";
+    const API_KEY = "ur77101-51c541a61e534686687f313d";
+    const MONITORS = "775987346-776633537-776052778";
+    const services = {
+        "dadata.ru": { id: "dadata" },
+        clean: { id: "clean" },
+        suggestions: { id: "suggestions" },
+    };
 
     function parse_state(monitor) {
-        return monitor.status === "2";
+        return monitor.status === 2;
     }
 
     function parse_uptime(monitor) {
-        var uptime = {},
-            uptimes = monitor.customuptimeratio.split("-");
-        uptime.day = uptimes[0];
-        uptime.week = uptimes[1];
-        uptime.month = uptimes[2];
-        uptime.year = uptimes[3];
+        const uptime = {};
+        const uptimes = monitor.custom_uptime_ratio.split("-");
+        uptime.day = Number(uptimes[0]);
+        uptime.week = Number(uptimes[1]);
+        uptime.month = Number(uptimes[2]);
+        uptime.year = Number(uptimes[3]);
         return uptime;
     }
 
-    function get_service_info(service) {
-        var promise = $.Deferred();
-        $.get(MONITOR_URL.replace("{{API_KEY}}", service.api_key))
-            .done(function(response) {
-                var monitor =
-                    (response.monitors &&
-                        response.monitors.monitor &&
-                        response.monitors.monitor.length &&
-                        response.monitors.monitor[0]) ||
-                    null;
-                if (!monitor) {
+    function get_services_info() {
+        const promise = $.Deferred();
+        const data = {
+            api_key: API_KEY,
+            format: "json",
+            monitors: MONITORS,
+            custom_uptime_ratios: "1-7-30-365",
+        };
+        $.ajax({ type: "POST", url: MONITOR_URL, data: data })
+            .done((response) => {
+                const monitors = response.monitors;
+                if (!monitors.length) {
                     promise.reject();
                 } else {
-                    service.is_up = parse_state(monitor);
-                    service.uptime = parse_uptime(monitor);
-                    console.log(service);
-                    promise.resolve(service);
+                    for (let monitor of monitors) {
+                        const service = services[monitor.friendly_name];
+                        service.is_up = parse_state(monitor);
+                        service.uptime = parse_uptime(monitor);
+                        console.log(service);
+                    }
+                    promise.resolve(services);
                 }
             })
-            .fail(function() {
+            .fail(function () {
                 promise.reject();
             });
         return promise;
@@ -84,38 +86,41 @@
     }
 
     function render(service) {
-        var $service = $("#" + service.id),
-            $state = $service.find(".js-state"),
-            $day = $service.find(".js-day"),
-            $week = $service.find(".js-week"),
-            $month = $service.find(".js-month"),
-            $year = $service.find(".js-year");
+        const $service = $("#" + service.id);
+
+        const $state = $service.find(".js-state");
         render_state($state, service.is_up);
+
+        const $day = $service.find(".js-day");
         render_uptime($day, service.uptime.day);
+
+        const $week = $service.find(".js-week");
         render_uptime($week, service.uptime.week);
+
+        const $month = $service.find(".js-month");
         render_uptime($month, service.uptime.month);
+
+        const $year = $service.find(".js-year");
         render_uptime($year, service.uptime.year);
     }
 
     function render_overall(is_up) {
-        var $overall = $("#overall"),
-            $logo = $overall.find(".js-logo"),
-            $state = $overall.find(".js-state");
+        const $overall = $("#overall");
+        const $logo = $overall.find(".js-logo");
         render_logo($logo, is_up);
+        const $state = $overall.find(".js-state");
         render_state($state, is_up);
     }
 
-    $(function() {
-        var is_up = true,
-            checked_count = 0;
-        for (var i in services) {
-            get_service_info(services[i]).done(function(service) {
+    $(function () {
+        let is_up = true;
+        get_services_info().done((services) => {
+            for (let service_name of Object.getOwnPropertyNames(services)) {
+                const service = services[service_name];
                 render(service);
                 is_up = is_up && service.is_up;
-                if (services.length == ++checked_count) {
-                    render_overall(is_up);
-                }
-            });
-        }
+            }
+            render_overall(is_up);
+        });
     });
 })(window.jQuery);
