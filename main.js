@@ -1,20 +1,18 @@
-(function ($) {
-    "use strict";
+const MONITOR_URL = "https://api.uptimerobot.com/v2/getMonitors";
+const API_KEY = "ur77101-51c541a61e534686687f313d";
+const MONITORS = "775987346-776633537-776052778";
 
-    const MONITOR_URL = "https://api.uptimerobot.com/v2/getMonitors";
-    const API_KEY = "ur77101-51c541a61e534686687f313d";
-    const MONITORS = "775987346-776633537-776052778";
-    const services = {
-        "dadata.ru": { id: "dadata" },
-        clean: { id: "clean" },
-        suggestions: { id: "suggestions" },
-    };
+const services = {
+    "dadata.ru": { id: "dadata" },
+    clean: { id: "clean" },
+    suggestions: { id: "suggestions" },
+};
 
-    function parse_state(monitor) {
+const parse = {
+    state: function(monitor) {
         return monitor.status === 2;
-    }
-
-    function parse_uptime(monitor) {
+    },
+    uptime:  function(monitor) {
         const uptime = {};
         const uptimes = monitor.custom_uptime_ratio.split("-");
         uptime.day = Number(uptimes[0]);
@@ -23,104 +21,115 @@
         uptime.year = Number(uptimes[3]);
         return uptime;
     }
+}
 
-    function get_services_info() {
-        const promise = $.Deferred();
-        const data = {
-            api_key: API_KEY,
-            format: "json",
-            monitors: MONITORS,
-            custom_uptime_ratios: "1-7-30-365",
-        };
-        $.ajax({ type: "POST", url: MONITOR_URL, data: data })
-            .done((response) => {
-                const monitors = response.monitors;
-                if (!monitors.length) {
-                    promise.reject();
-                } else {
-                    for (let monitor of monitors) {
-                        const service = services[monitor.friendly_name];
-                        service.is_up = parse_state(monitor);
-                        service.uptime = parse_uptime(monitor);
-                        console.log(service);
-                    }
-                    promise.resolve(services);
-                }
-            })
-            .fail(function () {
-                promise.reject();
-            });
-        return promise;
-    }
+const render = {
+    overall: function(isUp) {
+        const overall = document.querySelector("#overall");
+        const logo = overall.querySelector(".js-logo");
+        render.logo(logo, isUp);
+        const state = overall.querySelector(".js-state");
+        render.state(state, isUp);
+    },
 
-    function render_logo($el, is_up) {
-        $el.removeClass("hidden green red");
-        if (is_up) {
-            $el.addClass("fa-check green");
+    service: function(data) {
+        const service = document.querySelector("#" + data.id);
+
+        const state = service.querySelector(".js-state");
+        render.state(state, data.isUp);
+
+        const day = service.querySelector(".js-day");
+        render.uptime(day, data.uptime.day);
+
+        const week = service.querySelector(".js-week");
+        render.uptime(week, data.uptime.week);
+
+        const month = service.querySelector(".js-month");
+        render.uptime(month, data.uptime.month);
+
+        const year = service.querySelector(".js-year");
+        render.uptime(year, data.uptime.year);
+    },
+
+    logo: function(el, isUp) {
+        el.classList.remove("hidden", "green", "red");
+        if (isUp) {
+            el.classList.add("fa-check", "green");
         } else {
-            $el.addClass("fa-ban red");
+            el.classList.add("fa-ban", "red");
         }
-    }
+    },
 
-    function render_state($el, is_up) {
-        $el.removeClass("undefined green red");
-        if (is_up) {
-            $el.addClass("green");
-            $el.text("работает");
+    state: function(el, isUp) {
+        el.classList.remove("undefined", "green", "red");
+        if (isUp) {
+            el.classList.add("green");
+            el.innerText = "работает";
         } else {
-            $el.addClass("red");
-            $el.text("не работает");
+            el.classList.add("red");
+            el.innerText = "не работает";
         }
-    }
+    },
 
-    function render_uptime($el, percent) {
-        $el.removeClass("undefined green red");
+    uptime: function(el, percent) {
+        el.classList.remove("undefined", "green", "red");
         if (percent > 99) {
-            $el.addClass("green");
+            el.classList.add("green");
         } else if (percent > 90) {
-            $el.addClass("yellow");
+            el.classList.add("yellow");
         } else {
-            $el.addClass("red");
+            el.classList.add("red");
         }
-        $el.text(percent + "%");
+        el.innerText = percent + "%";
+    }
+}
+
+async function fetchServices() {
+    const options = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams({
+            "api_key": API_KEY,
+            "format": "json",
+            "monitors": MONITORS,
+            "custom_uptime_ratios": "1-7-30-365",
+        })
     }
 
-    function render(service) {
-        const $service = $("#" + service.id);
-
-        const $state = $service.find(".js-state");
-        render_state($state, service.is_up);
-
-        const $day = $service.find(".js-day");
-        render_uptime($day, service.uptime.day);
-
-        const $week = $service.find(".js-week");
-        render_uptime($week, service.uptime.week);
-
-        const $month = $service.find(".js-month");
-        render_uptime($month, service.uptime.month);
-
-        const $year = $service.find(".js-year");
-        render_uptime($year, service.uptime.year);
+    try {
+        const response = await fetch(MONITOR_URL, options);
+        if (!response.ok) {
+            return Promise.reject(response.status);
+        }
+        const data = await response.json();
+        const monitors = data.monitors;
+        if (!monitors.length) {
+            return Promise.reject("no monitors");
+        }
+        for (let monitor of monitors) {
+            const service = services[monitor.friendly_name];
+            service.isUp = parse.state(monitor);
+            service.uptime = parse.uptime(monitor);
+            console.log(service);
+        }
+        return Promise.resolve(services);
+    } catch (err) {
+        return Promise.reject(err);
     }
+}
 
-    function render_overall(is_up) {
-        const $overall = $("#overall");
-        const $logo = $overall.find(".js-logo");
-        render_logo($logo, is_up);
-        const $state = $overall.find(".js-state");
-        render_state($state, is_up);
-    }
-
-    $(function () {
-        let is_up = true;
-        get_services_info().done((services) => {
-            for (let service_name of Object.getOwnPropertyNames(services)) {
-                const service = services[service_name];
-                render(service);
-                is_up = is_up && service.is_up;
-            }
-            render_overall(is_up);
-        });
+function init() {
+    let isUp = true;
+    fetchServices().then((services) => {
+        for (let service_name of Object.getOwnPropertyNames(services)) {
+            const service = services[service_name];
+            render.service(service);
+            isUp = isUp && service.isUp;
+        }
+        render.overall(isUp);
     });
-})(window.jQuery);
+}
+
+document.addEventListener("DOMContentLoaded", init);
